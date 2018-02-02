@@ -111,6 +111,7 @@ class Loans extends React.Component {
   };
 
   render(){
+    console.log('props', this.props)
     return(
       <div>
         <Hero background={<Image src={'https://www.collegemagazine.com/wp-content/uploads/2015/03/UW-Quad.jpg'}
@@ -258,6 +259,7 @@ class Loans extends React.Component {
             pad='large'>
             <p />
             <Headline margin='none' style={{fontSize: "20px"}}>
+              {this.state.name}
               Loan Amount ($)
               <p />
               <NumberInput align='left' name='principal' value={this.state.principal} onChange={this.handleChange} step={1000}/>
