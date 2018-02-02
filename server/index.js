@@ -33,6 +33,7 @@ const getToken = async (req) => {
   } catch (err) {
     console.log(err);
   }
+  // req.user = 'user' // <= uncomment to dummy authenticate
   req.next()
 }
 
