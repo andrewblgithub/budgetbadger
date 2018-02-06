@@ -134,8 +134,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        {this.state.edit ? <button onClick={this.handleChanges}>Submit</button> : <button onClick={this.editing} >Edit your profile</button>}
-        {this.state.edit ? <ProfileEdit userInfo={this.state} /> : <ProfileCard userInfo={this.state} />}
+        {this.state.edit ? <ProfileEdit userInfo={this.state} /> : <ProfileCard userInfo={this.state}  editing={this.editing} />}
       </div>
     )
   }
