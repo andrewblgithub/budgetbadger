@@ -7,9 +7,12 @@ const User = db.Model.extend({
   tableName: 'users',
   initialize: function() {
     this.on('creating', this.hashPassword);
+    // this.on('updating', this.hashPassword);
   },
   comparePassword: async function(input) {
+    console.log("THIS.GETPASSWORD AND INPUT:", this.get('password'), input);
     const match = await bcrypt.compare(input, this.get('password'));
+    console.log("MATCH:", match);
     return match;
   },
   hashPassword: function() {
@@ -24,7 +27,10 @@ const User = db.Model.extend({
     return this.belongsToMany(School);
   },
   bill_category_id: () => {
-    return this.belongsToMany(BillCategory, 'id');
+    return this.belongsToMany(BillCategory);
+  },
+  bill_payment_history: () => {
+    return this.belongsToMany(BillPaymentHistory);
   }
 })
 

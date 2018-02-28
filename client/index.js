@@ -6,16 +6,11 @@ import ApolloClient from 'apollo-client'
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloLink, concat } from 'apollo-link'
 import App from './components/pages/App.jsx'
+import Cookies from 'universal-cookie';
 
-const httpLink = new HttpLink();
-
-// const middlewareLink = setContext(() => ({
-//   headers: { 
-//     authorization: localStorage.getItem('token') || null,
-//   }
-// }));
-// const link = middlewareLink.concat(httpLink);
+const httpLink = new HttpLink({ withCredentials: true, credentials: 'same-origin' });
 
 const client = new ApolloClient({
   link: httpLink,

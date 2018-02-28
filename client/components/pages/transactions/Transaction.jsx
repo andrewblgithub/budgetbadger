@@ -5,6 +5,7 @@ const Transaction = (props) => {
   if (props.account.length > 0) {
     return (
       <TableRow 
+        onClick={() => props.handleClick(props.transaction)}
         justify='between'
         separator='horizontal'>
         <td>{props.date}</td>

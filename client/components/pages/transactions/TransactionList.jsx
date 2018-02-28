@@ -5,8 +5,10 @@ import Transaction from './Transaction.jsx';
 
 
 
-const TransactionList = ({ transactions, sort, dir, sortIdx }) => (
-      <Table>
+const TransactionList = ({ transactions, sort, dir, sortIdx, displaySummary }) => (
+      <Table
+        selectable={true}
+        reponsive={true}>
         <TableHeader
           labels={['Date', 'Type', 'Category','Description', 'Amount']}
           sortIndex={sortIdx}
@@ -19,7 +21,7 @@ const TransactionList = ({ transactions, sort, dir, sortIdx }) => (
         {
           transactions ? 
           transactions.map((transaction, idx) => {
-            return <Transaction {...transaction} key={idx}/>
+            return <Transaction displaySummary={displaySummary} transaction={transaction} idx={idx} handleClick={displaySummary} {...transaction} key={idx}/>
         }): 
           null
         }

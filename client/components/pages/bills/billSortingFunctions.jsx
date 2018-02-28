@@ -1,28 +1,28 @@
 const billSortingFunctions = {
   description: (a, b, direction) => {
     return direction ?
-      a.localeCompare(b): 
-      b.localeCompare(a);
+    a.bills[0].description.localeCompare(b.bills[0].description): 
+    b.bills[0].description.localeCompare(a.bills[0].description);
   },
   bill_category: (a, b, direction) => {
     return direction ?
-      a[0].name.localeCompare(b[0].name) :
-      b[0].name.localeCompare(a[0].name);
+    a.bills[0].bill_category[0].name.localeCompare(b.bills[0].bill_category[0].name) :
+    b.bills[0].bill_category[0].name.localeCompare(a.bills[0].bill_category[0].name)
   },
   due_date: (a, b, direction) => {
     return direction ?
-      new Date(a) - new Date(b):
-      new Date(b) - new Date(a);
+      new Date(a.due_date) - new Date(b.due_date):
+      new Date(b.due_date) - new Date(a.due_date);
   }, 
   paid_date: (a, b, direction) => {
     return direction ?
-      new Date(a) - new Date(b):
-      new Date(b) - new Date(a);
+      new Date(a.paid_date) - new Date(b.paid_date):
+      new Date(b.paid_date) - new Date(a.paid_date);
   },
   amount: (a, b, direction) => {
     return direction ?
-      (a - b) :
-      (b - a);
+      (a.bills[0].amount - b.bills[0].amount) :
+      (b.bills[0].amount - a.bills[0].amount);
   }
 }
 export default billSortingFunctions;

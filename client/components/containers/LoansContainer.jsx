@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Loans from '../pages/Loans.jsx';
+import Loans from '../pages/loans/Loans.jsx';
 import { graphql, withApollo, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-
-const LOANS_QUERY = gql`
-  query LOANS_QUERY($user_id: Int!){
-    getLoans(user_id: $user_id) {
-      id
-      name
-      amount
-      interest_rate
-      inception_date
-      end_date
-    }
-  }
-`;
+import { LOANS_QUERY } from '../../queries.js';
 
 
 const withLoans = graphql(LOANS_QUERY, {

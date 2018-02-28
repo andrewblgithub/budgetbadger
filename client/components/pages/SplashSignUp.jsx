@@ -45,9 +45,17 @@ class SplashSignUp extends Component {
                 <Box pad={{ vertical: "small", width: "100%" }} >
                   <FormFields style={{ width: "100%" }} >
                       <Label>Email</Label>
-                      <TextInput onDOMChange={e => this.setState({ user_email: e.target.value })}  style={{ width: "100%" }} name="userEmail" />
+                      <TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        this._confirm();
+                      }
+                    }} onDOMChange={e => this.setState({ user_email: e.target.value })}  style={{ width: "100%" }} name="userEmail" />
                       <Label>Password</Label>
-                      <TextInput onDOMChange={e => this.setState({ password: e.target.value })} style={{ width: "100%" }} type="password" />
+                      <TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        this._confirm();
+                      }
+                    }} onDOMChange={e => this.setState({ password: e.target.value })} style={{ width: "100%" }} type="password" />
                   </FormFields>
                 </Box>
                 <Footer size="small" direction="column"

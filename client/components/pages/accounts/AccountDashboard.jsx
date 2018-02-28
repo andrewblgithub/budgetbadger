@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Distribution, Value} from 'grommet';
 
-const AccountsTotals = ({accounts}) => {
+const AccountDashboard = ({accounts}) => {
   if (accounts) {
     let cash = 0;
     let debt = 0;
@@ -12,18 +12,18 @@ const AccountsTotals = ({accounts}) => {
       debt += item.current_balance
     }
     return (
-      <div>
+      <div style={{width: "100%"}}>
         <Value 
           value={cash-debt}
           units='USD'
           reverse={false}
-          size='large' 
+          size='medium' 
           align='center'
         />
         <Distribution 
           series={[
             {"label": "Assets", "value": cash, "colorIndex": "graph-1"}, 
-            {"label": "Debt", "value": debt, "colorIndex": "graph-2"}
+            {"label": "Debt", "value": debt, "colorIndex": "unset"}
           ]}
           full={false}
           size='small' 
@@ -35,4 +35,4 @@ const AccountsTotals = ({accounts}) => {
   }
 }
 
-export default AccountsTotals;
+export default AccountDashboard;

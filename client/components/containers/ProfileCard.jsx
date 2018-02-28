@@ -2,49 +2,85 @@ import React, { Component } from 'react';
 import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import Bank from './BankContainer.jsx';
-import { App, Header, Section, Footer, Article, Title, Box, Paragraph, Menu, Anchor, Card } from 'grommet';
+import { App, Header, Section, Footer, Article, Title, Box, Paragraph, Menu, Anchor, TextInput } from 'grommet';
 
-const ProfileCard = ({userInfo, editing}) => {
+const ProfileCard = (props) => {
   return (
     <div>
-    <button onClick={editing}>Edit your profile</button>
-      <Box full={true} align="center" pad="large" flex={true}>
-        <Card label="User Info" alignSelf="center" style={{ height: "70%", width: "75%", outline: "#000 solid thin" }} >
-          <div style={{ outline: "#E8E8E8 solid thin" }}></div>
-          <Box full={true} direction="row" align="center" pad={{ between: "small"}} margin="small" >
-            <Box size={{ height: "medium", width: "large" }} style={{ display: "inline" }} direction="column" pad={{ between: "small" }} >
-              <Card label="Name" size={{ height: "small", width: "small" }} style={{ display: "inline-block" }} colorIndex="light-2" margin={{ horizontal: "small" }}>
-                <div style={{ outline: "#a8a8a8 solid thin" }} ></div>
-                <Paragraph margin="small">
-                  <Paragraph margin="none" >{userInfo.first_name}</Paragraph>
-                  <Paragraph margin="none" >{userInfo.last_name}</Paragraph>
-                </Paragraph>
-              </Card>
-              <Card label="Address" size={{ height: "small", width: "small" }} style={{ display: "inline-block" }} colorIndex="light-2" margin={{ horizontal: "small" }}>
-              <div style={{ outline: "#a8a8a8 solid thin" }} ></div>
-                <Paragraph margin="small">
-                  <Paragraph margin="none" >{userInfo.street}</Paragraph>
-                  <Paragraph margin="none" >{userInfo.state}</Paragraph>
-                  <Paragraph margin="none" >{userInfo.zip_code}</Paragraph>
-                </Paragraph>
-              </Card>
-              <Card wrap={true} label="Email" size={{ height: "small", width: "small" }} style={{ display: "inline-block" }} colorIndex="light-2" margin={{ horizontal: "small" }}> 
-              <div style={{ outline: "#a8a8a8 solid thin" }} ></div>       
-                <Paragraph style={{ wordWrap: "break-word" }} margin="small" >{userInfo.email}</Paragraph>
-              </Card>
-              <Card label="Phone" size={{ height: "small", width: "small" }} style={{ display: "inline-block" }} colorIndex="light-2" margin={{ horizontal: "small" }}>
-              <div style={{ outline: "#a8a8a8 solid thin" }} ></div>
-                <Paragraph margin="small" >{userInfo.phone}</Paragraph>
-              </Card>
-            </Box>
-            <Card label="Accounts" size={{ height: "medium", width: "medium" }} style={{ display: "inline" }} colorIndex="light-2" margin={{ vertical: "small", horizontal: "small" }}>
-            <div style={{ outline: "#a8a8a8 solid thin" }} ></div>
-              <Paragraph margin="small">
-                <Bank banks={userInfo.banks} />
+      <Box align="left" pad="large">
+              <Paragraph margin="none" >
+                {props.userInfo.editName === false ? <h1 onClick={props.editName} >{props.userInfo.first_name} {props.userInfo.last_name}</h1> :     
+                <h3><b onClick={props.handleSubmit} >Name: </b>
+                  <li style={{ listStyleType: "none" }}>
+                    <b>First Name: </b><TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="first_name" defaultValue={props.userInfo.first_name}/>
+                  </li>
+                  <li style={{ listStyleType: "none" }}>
+                    <b>Last Name: </b><TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="last_name" defaultValue={props.userInfo.last_name}/>
+                  </li>
+                </h3>}
               </Paragraph>
-            </Card>
-          </Box>
-        </Card>
+            <div style={{ outline: "#a8a8a8 solid thin", marginBottom: "25px" }} ></div>
+            <Paragraph margin="none">
+              { props.userInfo.editAddress === false ? <h3><b onClick={props.editAddress} >Address: </b>{props.userInfo.street}, {props.userInfo.state}, {props.userInfo.zip_code}</h3> : 
+              <h3><b onClick={props.handleSubmit} >Address: </b>
+                <li style={{ listStyleType: "none" }}>
+                  <b>Street </b><TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="street" defaultValue={props.userInfo.street}/>
+                </li>
+                <li style={{ listStyleType: "none" }}>
+                  <b>State </b><TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="state" defaultValue={props.userInfo.state}/>
+                </li>
+                <li style={{ listStyleType: "none" }}>
+                  <b>ZIP Code </b><TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="zip_code" defaultValue={props.userInfo.zip_code}/>
+                </li>
+              </h3> }
+            </Paragraph>
+            <div style={{ outline: "#a8a8a8 solid thin", marginBottom: "25px" }} ></div>       
+            <Paragraph margin="none" >
+              { props.userInfo.editEmail === false ? <h3><b onClick={props.editEmail} >Email: </b>{props.userInfo.email}</h3>: 
+              <h3><b onClick={props.handleSubmit} >Email: </b>
+                <li style={{ listStyleType: "none" }}>
+                  <TextInput onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="email" defaultValue={props.userInfo.email}/>
+                </li>
+              </h3>
+              }
+            </Paragraph>
+            <div style={{ outline: "#a8a8a8 solid thin", marginBottom: "25px" }} ></div>
+            <Paragraph margin="none" >
+              { props.userInfo.editPhone === false ? <h3><b onClick={props.editPhone} >Phone: </b>{props.userInfo.phone}</h3> :
+              <h3><b onClick={props.handleSubmit} >Phone: </b>
+              <li style={{ listStyleType: "none" }} >
+                <TextInput size={{ height: "small", width: "large"}} onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        props.handleSubmit();
+                      }
+                    }} onDOMChange={(e) => props.handleForm(e)} name="phone" defaultValue={props.userInfo.phone}/>
+              </li>
+              </h3> }
+            </Paragraph>
       </Box>
     </div>
   )

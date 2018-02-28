@@ -15,9 +15,14 @@ const sortingFuncs = {
       new Date(b) - new Date(a);
   }, 
   type: (a, b, direction) => {
+    const a1 = a.account[0].type;
+    const a2 = b.account[0].type;
+    // console.log(a1, a2)
     return direction ?
-      a.account[0].type.localeCompare(b.account[0].type) :
-      b.account[0].type.localeCompare(a.account[0].type)
+      a1.localeCompare(a2) :
+      a2.localeCompare(a1);
+      // a.account[0].type.localeCompare(b.account[0].type) :
+      // b.account[0].type.localeCompare(a.account[0].type)
   },
   amount: (a, b, direction) => {
     return direction ?

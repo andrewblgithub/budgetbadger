@@ -1,0 +1,4 @@
+#excludes workers from main build
+*/*/services*
+*/services
+services?

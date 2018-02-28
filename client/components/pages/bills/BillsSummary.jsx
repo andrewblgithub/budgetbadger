@@ -2,113 +2,100 @@ import { Columns, Box, Section,Title, Header, Heading, Paragraph} from 'grommet'
 import React, { Component } from 'react';
 import styles from '../../../../public/main/jStyles';
 
-class BillsSummary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
+  const BillsSummary = (props) => {
     return (
       <div>
-        <Header>
-          <Heading
-            align="center"
-            margin="small"
-            strong="true"
-            style={{ fontSize: '30px', marginLeft: '22%' }}
-          >
+        <Box width="full" style={{ margin: '20px 20%' }}>
+          <Heading align="left" strong="true" style={{ fontSize: '30px' }}>
             Monthly Summary
           </Heading>
-        </Header>
-        <Columns masonry={false} justify="center" size="small">
-          <Box
-            align="stretch"
-            pad="none"
-            direction="column"
-            margin="small"
-            style={{ width: '180px' }}
-          >
-            <Heading
+        </Box>
+        <Box width="full" style={{ margin: '20px 20%' }}>
+          <Columns masonry={true} maxCount={4} justify="center" size="small">
+            <Box
               align="center"
+              pad="none"
+              direction="column"
               margin="none"
-              strong="true"
-              style={{ fontSize: '20px', textAlign: 'center' }}
+              style={{ width: '180px' }}
             >
-              Bills Due
-            </Heading>
-            <Paragraph size="xlarge" style={{ textAlign: 'center'}}>
-              ${this.props.billsDueThisMonth
-                ? this.props.billsDueThisMonth
-                    .reduce((total, bill) => (total += bill.amount), 0)
-                    .toFixed(2)
-                : 0}
-            </Paragraph>
-          </Box>
-          <Box
-            align="stretch"
-            pad="none"
-            direction="column"
-            margin="small"
-            style={{ width: '180px' }}
-          >
-            <Heading
-              align="left"
-              margin="none"
-              strong="true"
-              style={{ fontSize: '20px', textAlign: 'center' }}
-            >
-              Bills Overdue
-            </Heading>
-            <Paragraph size="xlarge" style={{ textAlign: 'center'}}>
-              ${this.props.overdueBills
-                ? this.props.overdueBills
-                    .reduce((total, bill) => (total += bill.amount), 0)
-                    .toFixed(2)
-                : 0}
-            </Paragraph>
-          </Box>
-          <Box
-            align="center"
-            pad="none"
-            direction="column"
-            margin="small"
-            style={{ width: '180px' }}
-          >
-            <Heading
-              align="left"
-              margin="none"
-              strong="true"
-              style={{ fontSize: '20px', textAlign: 'center' }}
-            >
-              Cash Available
-            </Heading>
-            <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
-              Need Data
-            </Paragraph>
-          </Box>
-          <Box
-            align="center"
-            pad="none"
-            direction="column"
-            margin="small"
-            style={{ width: '180px' }}
-          >
-            <Heading
-              align="left"
-              margin="none"
-              strong="true"
-              style={{ fontSize: '20px', textAlign: 'center'}}
-            >
-              Credit Available
-            </Heading>
-            <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
-              Need Data
-            </Paragraph>
-          </Box>
-        </Columns>
-      </div>
-    );
-  }
+              <Heading
+                align="center"
+                margin="none"
+                strong="true"
+                style={{ fontSize: '20px', textAlign: 'center' }}
+              >
+                Bills Due
+              </Heading>
+              <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
+                ${props.billsDue
+                  ? props.billsDue.reduce((total, bill) => (total += bill.bills[0].amount),0).toFixed(2) : "0.00"}
+              </Paragraph>
+            </Box>
+              <Box
+                align="center"
+                pad="none"
+                direction="column"
+                margin="none"
+                style={{ width: '180px' }}
+              >
+                <Heading
+                  align="left"
+                  margin="none"
+                  strong="true"
+                  style={{ fontSize: '20px', textAlign: 'center' }}
+                >
+                  Bills Overdue
+                </Heading>
+                <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
+                  ${props.overdueBills
+                    ? props.overdueBills
+                        .reduce((total, bill) => (total += bill.bills[0].amount),0.00)
+                        .toFixed(2)
+                    : "0.00"}
+                </Paragraph>
+              </Box>
+              <Box
+                align="center"
+                pad="none"
+                direction="column"
+                margin="none"
+                style={{ width: '180px' }}
+              >
+                <Heading
+                  align="left"
+                  margin="none"
+                  strong="true"
+                  style={{ fontSize: '20px', textAlign: 'center' }}
+                >
+                  Cash Available
+                </Heading>
+                <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
+                  ${props.cashAvailable ? props.cashAvailable.toFixed(2) : "0.00"}
+                </Paragraph>
+              </Box>
+              <Box
+                align="center"
+                pad="none"
+                direction="column"
+                margin="none"
+                style={{ width: '180px' }}
+              >
+                <Heading
+                  align="left"
+                  margin="none"
+                  strong="true"
+                  style={{ fontSize: '20px', textAlign: 'center' }}
+                >
+                  Credit Available
+                </Heading>
+                <Paragraph size="xlarge" style={{ textAlign: 'center' }}>
+                  ${props.creditAvailable ? props.creditAvailable.toFixed(2) : "0.00"}
+                </Paragraph>
+              </Box>
+          </Columns>
+        </Box>
+      </div>);
 }
 
 export default BillsSummary;

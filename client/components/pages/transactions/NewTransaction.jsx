@@ -1,42 +1,36 @@
 import React, { Component } from 'react';
-import Accordion from 'grommet/components/Accordion';
-import AccordionPanel from 'grommet/components/AccordionPanel';
 import styles from '../../../../public/main/jStyles.js';
-import {Split, Box, Button, CheckBox, CloseIcon, DateTime, Form, FormField, Footer, Header, Heading, Label, Layer, NumberInput, SearchInput, Select, TextInput} from 'grommet'
+import {Columns, Box, Button, CheckBox, CloseIcon, DateTime, Form, FormField, Footer, Header, Heading, Label, Layer, NumberInput, SearchInput, Select, TextInput} from 'grommet'
 
 class NewTransaction extends Component {
   constructor() {
     super()
-    this.state = {
-      forms: {
-
-      }
-    }
   }
   render() {
     return (
-      <Accordion>
-        <AccordionPanel heading="Add a transaction">
-          <Split
-            fixed={false}
-            separator={false}
-            showOnResponsive='both'
-            flex="both"
-            >
+      this.props.displayNewTransaction ?
+      <Layer         
+        closer={true}
+        overlayClose={true}
+        padding="small"
+        flush={true}
+        onClose={(e) => this.props.handleNewTransaction(e)}>
           <Form style={{paddingLeft:'5%', paddingRight:'5%'}}>
           <Header>
             <Heading tag='h3' strong='true'>Enter Transaction Details:</Heading>
           </Header>
-          <Box align="left">
-            <Heading tag='h4' margin='small'>Transaction Category:
+          <Columns
+            maxCount={2}
+            justify="center"
+            responsive={false}>
+            <Heading tag='h4' margin='small'>Transaction Category:</Heading>
               <TextInput
                 placeHolder="Category"
                 name='category'
                 value={this.props.form.category}
                 onDOMChange={this.props.handleForm}
               />
-            </Heading>
-            <Heading tag='h4' margin='medium'>Transaction Description:
+            <Heading tag='h4' margin='medium'>Transaction Description:</Heading>
               <div>
                   <TextInput
                     placeHolder="Description"
@@ -45,21 +39,16 @@ class NewTransaction extends Component {
                     onDOMChange={this.props.handleForm}
                   />
                 </div>
-            </Heading>
-          </Box>
-          <Box align="right">
-            <Heading tag='h4' margin='small'>Bill Amount:
+            <Heading tag='h4' margin='small'>Bill Amount:</Heading>
               <div>
               <NumberInput 
                 placeHolder='Enter Amount'
                 name='amount'
                 value = {this.props.form.amount} 
                 onChange = {this.props.handleForm}
-                min = {0.00}
-              />
+                min = {0.00}/>
                 </div>
-            </Heading>
-            <Heading tag='h4'  margin='small'>Transaction Date:
+            <Heading tag='h4'  margin='small'>Transaction Date:</Heading>
             <div>
               <DateTime id='id'
                   name='date'
@@ -69,8 +58,7 @@ class NewTransaction extends Component {
                   value={this.props.form.date} 
               />
               </div>
-            </Heading>
-            <Heading tag='h4'  margin='small'>Transaction Category:
+            <Heading tag='h4'  margin='small'>Transaction Category:</Heading>
             <div>
               <Select placeHolder='Account'
                 name='account'
@@ -78,8 +66,6 @@ class NewTransaction extends Component {
                 value={this.props.form.account}
                 onChange={({value}) => this.props.handleForm('account', value)} />
               </div>
-            </Heading>
-          </Box>
           <Footer pad={{"vertical": "medium"}}>
             <Button label='Submit'
               type='submit'
@@ -88,10 +74,9 @@ class NewTransaction extends Component {
               style={{backgroundColor:'#49516f', color:'white', width: '130px', fontSize:'20px', padding:'6px 12px', border:'none'}}
             />
           </Footer>
+        </Columns>
         </Form>
-        </Split>
-        </AccordionPanel>
-      </Accordion>
+      </Layer>: null
     )
   }
 

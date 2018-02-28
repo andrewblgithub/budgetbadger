@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  web-application:
+    container_name: web-application
+    build: ./
+    image: gustafb/web-application
+    volumes:
+      - './:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3007:3006' # expose ports - HOST:CONTAINER
+  transaction-service:  
+    container_name: transaction-service
+    build: './services/transaction-worker'
+    image: gustafb/transaction-service
+    volumes:
+      - './services/transaction-worker:/usr/src/app'
+      - './services/transaction-worker/package.json:/usr/src/package.json'
+      - './services/transaction-worker:/usr/src/app/node_modules'
+    ports:
+      - '3000:3000' # expose ports - HOST:CONTAINER
+  budget-service:  
+      container_name: budget-service
+      build: './services/budget-worker'
+      image: gustafb/budget-service
+      volumes:
+        - './services/budget-worker:/usr/src/app'
+        - './services/budget-worker/package.json:/usr/src/package.json'
+        - './services/budget-worker:/usr/src/app/node_modules'
+      ports:
+        - '7080:7080' # expose ports - HOST:CONTAINER
+  bill-service:  
+      container_name: bill-service
+      build: './services/bill-worker'
+      image: gustafb/bill-service
+      volumes:
+        - './services/bill-worker:/usr/src/app'
+        - './services/bill-worker/package.json:/usr/src/package.json'
+        - './services/bill-worker:/usr/src/app/node_modules'
+      ports:
+        - '8003:8003' # expose ports - HOST:CONTAINER

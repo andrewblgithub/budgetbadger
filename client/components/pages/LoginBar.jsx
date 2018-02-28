@@ -16,7 +16,6 @@ class LoginBar extends Component {
     this.refs.plaid.handleOnClick()
   }
   handleLogout() {
-    console.log('loggin out')
     new Cookies().remove('user')
     window.location.reload()
   }
@@ -31,6 +30,7 @@ class LoginBar extends Component {
   render() {
     return (
       <Header pad={{horizontal: 'none', vertical: "none", between:"small"}} colorIndex="neutral-4">
+        <Image src="https://visualpharm.com/assets/2/Badger-595b40b75ba036ed117d8786.svg" style={styles.loginBarImage}/>
         <ReactPlaidLink
           clientName="Your app name"
           env="sandbox"
@@ -41,7 +41,6 @@ class LoginBar extends Component {
           style={{border: '0px', width: '0px', height: '0px'}}
           ref='plaid'
         />
-        <Image src="https://visualpharm.com/assets/2/Badger-595b40b75ba036ed117d8786.svg" style={styles.loginBarImage}/>
         <Box flex={true}
           full="horizontal"
           justify='end'

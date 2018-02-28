@@ -3,11 +3,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const path = require('path')
 
-const config = {  
-  context: __dirname,
+const mainPath = path.resolve(__dirname, 'client', 'index.js');
+const splashPath = path.resolve(__dirname, 'client', 'splash.js');
+const buildPath = path.resolve(__dirname, 'public');
+
+const config = { 
+  context: __dirname, 
   entry: {
-    main: './client/index.js',
-    splash: './client/splash.js'
+    main: mainPath,
+    splash: splashPath
   },
   output: {
     path: path.join(__dirname,'/public/'),
